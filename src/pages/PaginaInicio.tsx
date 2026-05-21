@@ -16,8 +16,7 @@ export function PaginaInicio() {
           <p style={{ marginBottom: '1rem' }}>
             Aquí tienes un ejemplo de los componentes rescatados.
           </p>
-          <Boton>
-            <Play size={14} className="mr-2" style={{ display: 'inline-block' }} />
+          <Boton icono={Play}>
             Componente Botón
           </Boton>
         </ContenidoTarjeta>

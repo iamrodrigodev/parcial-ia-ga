@@ -16,9 +16,11 @@ export function PaginaInicio() {
           <p className="text-sm text-muted-foreground" style={{ marginBottom: '1rem' }}>
             Aquí tienes un ejemplo de los componentes rescatados.
           </p>
-          <Boton icono={Play}>
-            Componente Botón
-          </Boton>
+          <div className="flex gap-2 flex-wrap">
+            <Boton icono={Play}>
+              Componente Botón
+            </Boton>
+          </div>
         </ContenidoTarjeta>
       </Tarjeta>
     </div>

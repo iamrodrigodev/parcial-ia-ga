@@ -1,4 +1,4 @@
-@import "tailwindcss";
+@use 'variables';
+@use 'base';
 
-@import 'variables';
-@import 'base';
+@import url("tailwindcss");

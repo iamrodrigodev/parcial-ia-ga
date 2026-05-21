@@ -1,41 +1,44 @@
+﻿import { useState } from "react";
 import { Tarjeta, ContenidoTarjeta, DescripcionTarjeta, EncabezadoTarjeta, TituloTarjeta } from "@/components/ui/tarjeta";
+import { Boton } from "@/components/ui/boton";
+
+const base = [1,2,3,4,5,6];
 
 export function MutacionInversion() {
+  const [a, setA] = useState(1);
+  const [b, setB] = useState(4);
+  const [paso, setPaso] = useState<1 | 2 | 3>(1);
+
+  const mut = [...base.slice(0,a), ...[...base.slice(a,b+1)].reverse(), ...base.slice(b+1)];
+
+  const nuevo = () => {
+    const i = Math.floor(Math.random()*(base.length-1));
+    const j = Math.floor(Math.random()*(base.length-i-1))+i+1;
+    setA(i); setB(j); setPaso(1);
+  };
+
   return (
     <Tarjeta>
       <EncabezadoTarjeta>
         <TituloTarjeta className="text-2xl">Mutación por Inversión</TituloTarjeta>
-        <DescripcionTarjeta className="text-base mt-2">
-          Se elige un subconjunto continuo de genes y se invierte su orden completamente.
-        </DescripcionTarjeta>
+        <DescripcionTarjeta className="text-base mt-2">Paso {paso}/3. Se invierte el orden de un bloque continuo.</DescripcionTarjeta>
       </EncabezadoTarjeta>
       <ContenidoTarjeta>
-        <div className="bg-muted/10 p-6 rounded-xl border flex flex-col gap-6 items-center mt-4">
-          <div className="flex flex-col items-center gap-2">
-            <span className="text-sm font-bold">Antes:</span>
-            <div className="flex gap-1 relative">
-              <div className="absolute top-0 bottom-0 left-[3rem] right-[3rem] -inset-y-2 border-2 border-dashed border-red-400 bg-red-50/30 rounded z-0"></div>
-              <div className="w-10 h-10 border-2 bg-white flex items-center justify-center font-bold rounded z-10 text-muted-foreground">1</div>
-              <div className="w-10 h-10 border-2 border-red-500 bg-red-100 text-red-900 flex items-center justify-center font-bold rounded z-10">2</div>
-              <div className="w-10 h-10 border-2 border-red-500 bg-red-100 text-red-900 flex items-center justify-center font-bold rounded z-10">3</div>
-              <div className="w-10 h-10 border-2 border-red-500 bg-red-100 text-red-900 flex items-center justify-center font-bold rounded z-10">4</div>
-              <div className="w-10 h-10 border-2 bg-white flex items-center justify-center font-bold rounded z-10 text-muted-foreground">5</div>
-            </div>
-            <span className="text-xs text-red-500 font-bold mt-1">Subconjunto a invertir</span>
+        <div className="bg-muted/30 p-6 rounded-xl border flex flex-col gap-4 items-center">
+          <div className="flex gap-2">
+            <Boton variante={paso===1?"primario":"fantasma"} onClick={()=>setPaso(1)}>1. Marcar bloque</Boton>
+            <Boton variante={paso===2?"primario":"fantasma"} onClick={()=>setPaso(2)}>2. Invertir orden</Boton>
+            <Boton variante={paso===3?"primario":"fantasma"} onClick={()=>setPaso(3)}>3. Resultado</Boton>
+            <Boton onClick={nuevo}>Nuevo ejemplo</Boton>
           </div>
-          
-          <div className="w-px h-6 bg-muted-foreground/30"></div>
-          
-          <div className="flex flex-col items-center gap-2">
-            <span className="text-sm font-bold">Después:</span>
-            <div className="flex gap-1">
-              <div className="w-10 h-10 border-2 bg-white flex items-center justify-center font-bold rounded text-muted-foreground">1</div>
-              <div className="w-10 h-10 border-2 border-green-500 bg-green-100 text-green-900 flex items-center justify-center font-bold rounded">4</div>
-              <div className="w-10 h-10 border-2 border-green-500 bg-green-100 text-green-900 flex items-center justify-center font-bold rounded">3</div>
-              <div className="w-10 h-10 border-2 border-green-500 bg-green-100 text-green-900 flex items-center justify-center font-bold rounded">2</div>
-              <div className="w-10 h-10 border-2 bg-white flex items-center justify-center font-bold rounded text-muted-foreground">5</div>
-            </div>
-          </div>
+
+          <div className="flex flex-col md:flex-row items-center gap-3"><span className="w-24 text-sm font-bold text-center md:text-right">Antes:</span><div className="flex gap-1">{base.map((v,i)=><div key={i} className={`w-10 h-10 border rounded-sm flex items-center justify-center font-bold ${i>=a&&i<=b?"border-red-500 bg-red-50 text-red-700":"bg-white"}`}>{v}</div>)}</div></div>
+
+          {paso>=2 && <div className="text-sm text-zinc-600">Bloque invertido: de <strong>{a+1}</strong> a <strong>{b+1}</strong>.</div>}
+
+          {paso>=3 && <div className="flex flex-col md:flex-row items-center gap-3"><span className="w-24 text-sm font-bold text-center md:text-right">Después:</span><div className="flex gap-1">{mut.map((v,i)=><div key={i} className={`w-10 h-10 border rounded-sm flex items-center justify-center font-bold ${i>=a&&i<=b?"border-green-500 bg-green-50 text-green-700":"bg-white"}`}>{v}</div>)}</div></div>}
+
+          <div className="w-full rounded-md border bg-white p-3 text-sm text-zinc-700"><strong>Conclusión:</strong> Inversión cambia la secuencia local sin perder genes, útil en problemas de rutas.</div>
         </div>
       </ContenidoTarjeta>
     </Tarjeta>

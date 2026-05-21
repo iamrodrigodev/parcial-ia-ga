@@ -18,7 +18,7 @@ export function BarraNavegacion() {
           <span className="w-8 h-8 rounded-lg border flex items-center justify-center bg-gradient-to-br from-neutral-100 to-white text-primary">
             <Network size={14} />
           </span>
-          <span className="font-bold">Proyecto Limpio</span>
+          <span className="font-bold">Algoritmos Genéticos</span>
         </Link>
 
         <nav className="hidden md:flex items-center gap-2 flex-1">

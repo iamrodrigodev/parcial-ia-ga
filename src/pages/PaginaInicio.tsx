@@ -7,7 +7,7 @@ export function PaginaInicio() {
     <div className="container" style={{ paddingTop: '2rem' }}>
       <Tarjeta>
         <EncabezadoTarjeta>
-          <TituloTarjeta>Bienvenido al Proyecto Limpio</TituloTarjeta>
+          <TituloTarjeta>Bienvenido a Algoritmos Genéticos</TituloTarjeta>
           <DescripcionTarjeta>
             Toda la lógica de algoritmos ha sido removida. Solo quedan los componentes UI y la estructura base.
           </DescripcionTarjeta>

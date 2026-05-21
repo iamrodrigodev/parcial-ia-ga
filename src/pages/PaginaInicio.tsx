@@ -13,7 +13,7 @@ export function PaginaInicio() {
           </DescripcionTarjeta>
         </EncabezadoTarjeta>
         <ContenidoTarjeta>
-          <p style={{ marginBottom: '1rem' }}>
+          <p className="text-sm text-muted-foreground" style={{ marginBottom: '1rem' }}>
             Aquí tienes un ejemplo de los componentes rescatados.
           </p>
           <Boton icono={Play}>

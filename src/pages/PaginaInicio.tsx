@@ -4,7 +4,7 @@ import { Play } from "lucide-react";
 
 export function PaginaInicio() {
   return (
-    <div className="container" style={{ paddingTop: '2rem' }}>
+    <div className="container">
       <Tarjeta>
         <EncabezadoTarjeta>
           <TituloTarjeta>Bienvenido a Algoritmos Genéticos</TituloTarjeta>

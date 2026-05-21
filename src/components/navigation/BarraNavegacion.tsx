@@ -1,11 +1,12 @@
 import { useState } from "react";
 import { Link, NavLink } from "react-router-dom";
-import { Menu, Dna, X, Home} from "lucide-react";
+import { Menu, Dna, X, Home, BookOpen } from "lucide-react";
 import { Boton } from "@/components/ui/boton";
 import { concatenarClases } from "@/lib/utiles";
 
 const elementos = [
   { ruta: "/", etiqueta: "Inicio", icono: Home },
+  { ruta: "/operadores", etiqueta: "Operadores", icono: BookOpen },
 ];
 
 export function BarraNavegacion() {

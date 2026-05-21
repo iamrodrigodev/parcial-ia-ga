@@ -3,10 +3,10 @@ import * as SelectPrimitive from "@radix-ui/react-select";
 import { Check, ChevronDown } from "lucide-react";
 import { concatenarClases as cn } from "@/lib/utiles";
 
-export const Select = SelectPrimitive.Root;
-export const SelectValue = SelectPrimitive.Value;
+export const Seleccion = SelectPrimitive.Root;
+export const ValorSeleccion = SelectPrimitive.Value;
 
-export const SelectTrigger = React.forwardRef<
+export const DisparadorSeleccion = React.forwardRef<
   React.ComponentRef<typeof SelectPrimitive.Trigger>,
   React.ComponentPropsWithoutRef<typeof SelectPrimitive.Trigger>
 >(({ className, children, ...props }, ref) => (
@@ -17,9 +17,9 @@ export const SelectTrigger = React.forwardRef<
     </SelectPrimitive.Icon>
   </SelectPrimitive.Trigger>
 ));
-SelectTrigger.displayName = SelectPrimitive.Trigger.displayName;
+DisparadorSeleccion.displayName = SelectPrimitive.Trigger.displayName;
 
-export const SelectContent = React.forwardRef<
+export const ContenidoSeleccion = React.forwardRef<
   React.ComponentRef<typeof SelectPrimitive.Content>,
   React.ComponentPropsWithoutRef<typeof SelectPrimitive.Content>
 >(({ className, children, ...props }, ref) => (
@@ -29,9 +29,9 @@ export const SelectContent = React.forwardRef<
     </SelectPrimitive.Content>
   </SelectPrimitive.Portal>
 ));
-SelectContent.displayName = SelectPrimitive.Content.displayName;
+ContenidoSeleccion.displayName = SelectPrimitive.Content.displayName;
 
-export const SelectItem = React.forwardRef<
+export const ElementoSeleccion = React.forwardRef<
   React.ComponentRef<typeof SelectPrimitive.Item>,
   React.ComponentPropsWithoutRef<typeof SelectPrimitive.Item>
 >(({ className, children, ...props }, ref) => (
@@ -42,4 +42,4 @@ export const SelectItem = React.forwardRef<
     </SelectPrimitive.ItemIndicator>
   </SelectPrimitive.Item>
 ));
-SelectItem.displayName = SelectPrimitive.Item.displayName;
+ElementoSeleccion.displayName = SelectPrimitive.Item.displayName;

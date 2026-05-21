@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link, NavLink } from "react-router-dom";
-import { Menu, Dna, X } from "lucide-react";
+import { Menu, Dna, X, Home } from "lucide-react";
 import { Boton } from "@/components/ui/boton";
 import { concatenarClases } from "@/lib/utiles";
 
@@ -23,7 +23,7 @@ export function BarraNavegacion() {
 
         <nav className="hidden md:flex items-center gap-2 flex-1 justify-end">
           {elementos.map((elemento) => (
-            <Boton key={elemento.ruta} comoHijo>
+            <Boton key={elemento.ruta} comoHijo icono={Home}>
               <Link to={elemento.ruta}>
                 {elemento.etiqueta}
               </Link>
@@ -36,16 +36,15 @@ export function BarraNavegacion() {
           tamano="pequeno"
           className="md:hidden"
           onClick={() => setAbierto((valor) => !valor)}
-        >
-          {abierto ? <X size={16} /> : <Menu size={16} />}
-        </Boton>
+          icono={abierto ? X : Menu}
+        />
       </div>
 
       {abierto ? (
         <div className="md:hidden border-t">
           <div className="container mx-auto max-w-[1220px] px-4 py-2 grid gap-1">
             {elementos.map((elemento) => (
-              <Boton key={elemento.ruta} comoHijo className="w-full justify-start">
+              <Boton key={elemento.ruta} comoHijo className="w-full justify-start" icono={Home}>
                 <Link to={elemento.ruta} onClick={() => setAbierto(false)}>
                   {elemento.etiqueta}
                 </Link>

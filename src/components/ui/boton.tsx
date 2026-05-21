@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Slot } from "@radix-ui/react-slot";
+import { Slot, Slottable } from "@radix-ui/react-slot";
 import { cva, type VariantProps } from "class-variance-authority";
 import { concatenarClases } from "@/lib/utiles";
 
@@ -30,12 +30,18 @@ export interface PropiedadesBoton
   extends React.ButtonHTMLAttributes<HTMLButtonElement>,
     VariantProps<typeof variantesBoton> {
   comoHijo?: boolean;
+  icono?: React.ElementType;
 }
 
 export const Boton = React.forwardRef<HTMLButtonElement, PropiedadesBoton>(
-  ({ className, variante, tamano, comoHijo = false, ...propiedades }, ref) => {
+  ({ className, variante, tamano, comoHijo = false, icono: Icono, children, ...propiedades }, ref) => {
     const Componente = comoHijo ? Slot : "button";
-    return <Componente className={concatenarClases(variantesBoton({ variante, tamano, className }))} ref={ref} {...propiedades} />;
+    return (
+      <Componente className={concatenarClases(variantesBoton({ variante, tamano, className }))} ref={ref} {...propiedades}>
+        {Icono && <Icono />}
+        <Slottable>{children}</Slottable>
+      </Componente>
+    );
   },
 );
 Boton.displayName = "Boton";

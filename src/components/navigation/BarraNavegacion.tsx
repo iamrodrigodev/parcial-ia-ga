@@ -24,12 +24,14 @@ export function BarraNavegacion() {
             <NavLink key={elemento.ruta} to={elemento.ruta}>
               {({ isActive }) => (
                 <Boton
+                  comoHijo
                   variante={isActive ? "secundario" : "primario"}
                   icono={elemento.icono}
-                  className={isActive ? "bg-[#737373] text-white hover:bg-[#525252]" : ""}
+                  className={isActive ? "bg-[#737373] text-white hover:bg-[#737373] cursor-default" : ""}
                   tamano="pequeno"
+                  onClick={(e) => isActive && e.preventDefault()}
                 >
-                  {elemento.etiqueta}
+                  <span>{elemento.etiqueta}</span>
                 </Boton>
               )}
             </NavLink>
@@ -49,14 +51,22 @@ export function BarraNavegacion() {
         <div className="md:hidden border-t">
           <div className="container mx-auto max-w-[1220px] px-4 py-2 grid gap-1">
             {elementos.map((elemento) => (
-              <NavLink key={elemento.ruta} to={elemento.ruta} onClick={() => setAbierto(false)}>
+              <NavLink key={elemento.ruta} to={elemento.ruta}>
                 {({ isActive }) => (
                   <Boton
+                    comoHijo
                     variante={isActive ? "secundario" : "primario"}
                     icono={elemento.icono}
-                    className={concatenarClases("w-full justify-start", isActive ? "bg-[#737373] text-white hover:bg-[#525252]" : "")}
+                    className={concatenarClases("w-full justify-start", isActive ? "bg-[#737373] text-white hover:bg-[#737373] cursor-default" : "")}
+                    onClick={(e) => {
+                      if (isActive) {
+                        e.preventDefault();
+                      } else {
+                        setAbierto(false);
+                      }
+                    }}
                   >
-                    {elemento.etiqueta}
+                    <span>{elemento.etiqueta}</span>
                   </Boton>
                 )}
               </NavLink>

@@ -4,7 +4,7 @@ import { cva, type VariantProps } from "class-variance-authority";
 import { concatenarClases } from "@/lib/utiles";
 
 const variantesBoton = cva(
-  "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 cursor-pointer",
+  "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0",
   {
     variants: {
       variante: {
@@ -34,10 +34,30 @@ export interface PropiedadesBoton
 }
 
 export const Boton = React.forwardRef<HTMLButtonElement, PropiedadesBoton>(
-  ({ className, variante, tamano, comoHijo = false, icono: Icono, children, ...propiedades }, ref) => {
+  ({ className, variante, tamano, comoHijo = false, icono: Icono, children, onClick, ...propiedades }, ref) => {
     const Componente = comoHijo ? Slot : "button";
+
+    const manejarClick = (e: any) => {
+      if (propiedades.disabled) {
+        e.preventDefault();
+        return;
+      }
+      if (onClick) {
+        onClick(e);
+      }
+    };
+
     return (
-      <Componente className={concatenarClases(variantesBoton({ variante, tamano, className }))} ref={ref} {...propiedades}>
+      <Componente 
+        className={concatenarClases(
+          variantesBoton({ variante, tamano, className }),
+          propiedades.disabled ? "opacity-50 cursor-not-allowed" : "cursor-pointer"
+        )} 
+        ref={ref} 
+        onClick={manejarClick}
+        aria-disabled={propiedades.disabled}
+        {...propiedades}
+      >
         {Icono && <Icono />}
         <Slottable>{children}</Slottable>
       </Componente>

@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link, NavLink } from "react-router-dom";
-import { Menu, Network, X } from "lucide-react";
+import { Menu, Dna, X } from "lucide-react";
 import { Boton } from "@/components/ui/boton";
 import { concatenarClases } from "@/lib/utiles";
 
@@ -16,25 +16,18 @@ export function BarraNavegacion() {
       <div className="container mx-auto max-w-[1220px] px-4 flex h-14 items-center justify-between">
         <Link to="/" className="flex items-center gap-2 mr-4">
           <span className="w-8 h-8 rounded-lg border flex items-center justify-center bg-gradient-to-br from-neutral-100 to-white text-primary">
-            <Network size={14} />
+            <Dna size={14} />
           </span>
           <span className="font-bold">Algoritmos Genéticos</span>
         </Link>
 
-        <nav className="hidden md:flex items-center gap-2 flex-1">
+        <nav className="hidden md:flex items-center gap-2 flex-1 justify-end">
           {elementos.map((elemento) => (
-            <NavLink
-              key={elemento.ruta}
-              to={elemento.ruta}
-              className={({ isActive }) =>
-                concatenarClases(
-                  "px-3 py-1.5 rounded-md text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground",
-                  isActive ? "bg-accent text-accent-foreground" : "text-muted-foreground"
-                )
-              }
-            >
-              {elemento.etiqueta}
-            </NavLink>
+            <Boton key={elemento.ruta} comoHijo>
+              <Link to={elemento.ruta}>
+                {elemento.etiqueta}
+              </Link>
+            </Boton>
           ))}
         </nav>
 
@@ -52,19 +45,11 @@ export function BarraNavegacion() {
         <div className="md:hidden border-t">
           <div className="container mx-auto max-w-[1220px] px-4 py-2 grid gap-1">
             {elementos.map((elemento) => (
-              <NavLink
-                key={elemento.ruta}
-                to={elemento.ruta}
-                className={({ isActive }) =>
-                  concatenarClases(
-                    "px-3 py-2 rounded-md text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground",
-                    isActive ? "bg-accent text-accent-foreground" : "text-muted-foreground"
-                  )
-                }
-                onClick={() => setAbierto(false)}
-              >
-                {elemento.etiqueta}
-              </NavLink>
+              <Boton key={elemento.ruta} comoHijo className="w-full justify-start">
+                <Link to={elemento.ruta} onClick={() => setAbierto(false)}>
+                  {elemento.etiqueta}
+                </Link>
+              </Boton>
             ))}
           </div>
         </div>

@@ -1,6 +1,6 @@
 import { Outlet, useLocation } from "react-router-dom";
 import { BarraNavegacion } from "@/components/navigation/BarraNavegacion";
-import { motion } from "framer-motion";
+import { AnimacionEntrada } from "@/components/ui/animacion-entrada";
 
 export function PlantillaPrincipal() {
   const ubicacion = useLocation();
@@ -9,15 +9,9 @@ export function PlantillaPrincipal() {
     <div className="app-shell">
       <BarraNavegacion />
       <main className="page-content">
-        <motion.div
-          key={ubicacion.pathname}
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, ease: "easeOut" }}
-          className="h-full"
-        >
+        <AnimacionEntrada key={ubicacion.pathname} className="h-full">
           <Outlet />
-        </motion.div>
+        </AnimacionEntrada>
       </main>
     </div>
   );

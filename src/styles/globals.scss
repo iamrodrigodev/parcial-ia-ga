@@ -4,6 +4,7 @@
 @import url("tailwindcss");
 
 @theme {
+  --font-sans: "Manrope", "Segoe UI", sans-serif;
   --color-background: var(--bg);
   --color-foreground: var(--text);
   --color-card: var(--surface);

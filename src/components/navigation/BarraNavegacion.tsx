@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link, NavLink } from "react-router-dom";
-import { Menu, Dna, X, Home, PenTool, Crown, Package, CalendarClock } from "lucide-react";
+import { Menu, Dna, X, Home} from "lucide-react";
 import { Boton } from "@/components/ui/boton";
 import { concatenarClases } from "@/lib/utiles";
 

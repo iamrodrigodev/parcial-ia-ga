@@ -1,12 +1,12 @@
 import { createBrowserRouter } from "react-router-dom";
-import { DisenoPrincipal } from "@/layouts/DisenoPrincipal";
+import { PlantillaPrincipal } from "@/layouts/PlantillaPrincipal";
 import { PaginaInicio } from "@/pages/PaginaInicio";
 import { PaginaNoEncontrada } from "@/pages/PaginaNoEncontrada";
 
 export const enrutador = createBrowserRouter([
   {
     path: "/",
-    element: <DisenoPrincipal />,
+    element: <PlantillaPrincipal />,
     errorElement: <PaginaNoEncontrada />,
     children: [
       {

@@ -3,44 +3,44 @@ import * as DialogPrimitive from "@radix-ui/react-dialog";
 import { X } from "lucide-react";
 import { concatenarClases as cn } from "@/lib/utiles";
 
-export const Dialog = DialogPrimitive.Root;
-export const DialogTrigger = DialogPrimitive.Trigger;
-export const DialogPortal = DialogPrimitive.Portal;
-export const DialogClose = DialogPrimitive.Close;
+export const Dialogo = DialogPrimitive.Root;
+export const DisparadorDialogo = DialogPrimitive.Trigger;
+export const PortalDialogo = DialogPrimitive.Portal;
+export const CerrarDialogo = DialogPrimitive.Close;
 
-export const DialogOverlay = React.forwardRef<
+export const CapaDialogo = React.forwardRef<
   React.ComponentRef<typeof DialogPrimitive.Overlay>,
   React.ComponentPropsWithoutRef<typeof DialogPrimitive.Overlay>
 >(({ className, ...props }, ref) => (
   <DialogPrimitive.Overlay ref={ref} className={cn("dialog-overlay", className)} {...props} />
 ));
-DialogOverlay.displayName = DialogPrimitive.Overlay.displayName;
+CapaDialogo.displayName = DialogPrimitive.Overlay.displayName;
 
-export const DialogContent = React.forwardRef<
+export const ContenidoDialogo = React.forwardRef<
   React.ComponentRef<typeof DialogPrimitive.Content>,
   React.ComponentPropsWithoutRef<typeof DialogPrimitive.Content>
 >(({ className, children, ...props }, ref) => (
-  <DialogPortal>
-    <DialogOverlay />
+  <PortalDialogo>
+    <CapaDialogo />
     <DialogPrimitive.Content ref={ref} className={cn("dialog-content", className)} {...props}>
       {children}
       <DialogPrimitive.Close className="dialog-close" aria-label="Cerrar diálogo">
         <X size={16} />
       </DialogPrimitive.Close>
     </DialogPrimitive.Content>
-  </DialogPortal>
+  </PortalDialogo>
 ));
-DialogContent.displayName = DialogPrimitive.Content.displayName;
+ContenidoDialogo.displayName = DialogPrimitive.Content.displayName;
 
-export function DialogHeader({ className, ...props }: React.HTMLAttributes<HTMLDivElement>) {
+export function EncabezadoDialogo({ className, ...props }: React.HTMLAttributes<HTMLDivElement>) {
   return <div className={cn("dialog-header", className)} {...props} />;
 }
 
-export function DialogTitle({ className, ...props }: React.ComponentPropsWithoutRef<typeof DialogPrimitive.Title>) {
+export function TituloDialogo({ className, ...props }: React.ComponentPropsWithoutRef<typeof DialogPrimitive.Title>) {
   return <DialogPrimitive.Title className={cn("dialog-title", className)} {...props} />;
 }
 
-export function DialogDescription({
+export function DescripcionDialogo({
   className,
   ...props
 }: React.ComponentPropsWithoutRef<typeof DialogPrimitive.Description>) {

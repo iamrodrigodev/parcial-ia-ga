@@ -22,7 +22,7 @@ export function PanelConfiguracionLaberinto({ config, mapaId, setMapaId, cambiar
       </EncabezadoTarjeta>
       <ContenidoTarjeta className="space-y-4">
         <div className="flex flex-col gap-1.5">
-          <label className="text-xs font-semibold text-zinc-700 dark:text-zinc-300">Seleccionar Mapa</label>
+          <label className="text-xs font-semibold text-zinc-700">Seleccionar Mapa</label>
           <select
             value={mapaId}
             onChange={(e) => setMapaId(e.target.value)}
@@ -36,40 +36,40 @@ export function PanelConfiguracionLaberinto({ config, mapaId, setMapaId, cambiar
 
         <div className="grid grid-cols-2 gap-3">
           <div className="flex flex-col gap-1.5">
-            <label className="text-xs font-semibold text-zinc-700 dark:text-zinc-300">Población</label>
+            <label className="text-xs font-semibold text-zinc-700">Población</label>
             <Entrada type="number" min={10} max={500} value={config.cantidadIndividuos} onChange={(e) => cambiarConfiguracion("cantidadIndividuos", Math.max(10, parseInt(e.target.value) || 10))} />
           </div>
           <div className="flex flex-col gap-1.5">
-            <label className="text-xs font-semibold text-zinc-700 dark:text-zinc-300">Límite Pasos (N)</label>
+            <label className="text-xs font-semibold text-zinc-700">Límite Pasos (N)</label>
             <Entrada type="number" min={5} max={200} value={config.limitePasos} onChange={(e) => cambiarConfiguracion("limitePasos", Math.max(5, parseInt(e.target.value) || 5))} />
           </div>
         </div>
 
         <div className="grid grid-cols-2 gap-3">
           <div className="flex flex-col gap-1.5">
-            <label className="text-xs font-semibold text-zinc-700 dark:text-zinc-300">Tasa Mutación</label>
+            <label className="text-xs font-semibold text-zinc-700">Tasa Mutación</label>
             <Entrada type="number" step={0.01} min={0} max={1} value={config.tasaMutacion} onChange={(e) => cambiarConfiguracion("tasaMutacion", Math.max(0, Math.min(1, parseFloat(e.target.value) || 0)))} />
           </div>
           <div className="flex flex-col gap-1.5">
-            <label className="text-xs font-semibold text-zinc-700 dark:text-zinc-300">Torneo (K)</label>
+            <label className="text-xs font-semibold text-zinc-700">Torneo (K)</label>
             <Entrada type="number" min={2} max={20} value={config.tamanoTorneo} onChange={(e) => cambiarConfiguracion("tamanoTorneo", Math.max(2, parseInt(e.target.value) || 2))} />
           </div>
         </div>
 
         <div className="border-t my-3 pt-3">
-          <h4 className="text-xs font-bold text-zinc-800 dark:text-zinc-200 mb-2.5">Penalizaciones y Recompensas</h4>
+          <h4 className="text-xs font-bold text-zinc-800 mb-2.5">Penalizaciones y Recompensas</h4>
           <div className="grid grid-cols-2 gap-3">
             <div className="flex flex-col gap-1.5">
-              <label className="text-xs font-semibold text-zinc-700 dark:text-zinc-300">Costo Paso</label>
+              <label className="text-xs font-semibold text-zinc-700">Costo Paso</label>
               <Entrada type="number" max={0} value={config.penalizacionPaso} onChange={(e) => cambiarConfiguracion("penalizacionPaso", Math.min(0, parseInt(e.target.value) || 0))} />
             </div>
             <div className="flex flex-col gap-1.5">
-              <label className="text-xs font-semibold text-zinc-700 dark:text-zinc-300">Costo Colisión</label>
+              <label className="text-xs font-semibold text-zinc-700">Costo Colisión</label>
               <Entrada type="number" max={0} value={config.penalizacionMuro} onChange={(e) => cambiarConfiguracion("penalizacionMuro", Math.min(0, parseInt(e.target.value) || 0))} />
             </div>
           </div>
           <div className="flex flex-col gap-1.5 mt-3">
-            <label className="text-xs font-semibold text-zinc-700 dark:text-zinc-300">Recompensa Meta</label>
+            <label className="text-xs font-semibold text-zinc-700">Recompensa Meta</label>
             <Entrada type="number" min={0} value={config.recompensaMeta} onChange={(e) => cambiarConfiguracion("recompensaMeta", Math.max(0, parseInt(e.target.value) || 0))} />
           </div>
         </div>
@@ -77,4 +77,5 @@ export function PanelConfiguracionLaberinto({ config, mapaId, setMapaId, cambiar
     </Tarjeta>
   );
 }
+
 

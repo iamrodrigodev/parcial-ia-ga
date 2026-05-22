@@ -10,14 +10,14 @@ export function PanelMetricasLaberinto({ mejorIndividuoHistorico }: Props) {
   if (!mejorIndividuoHistorico) return null;
 
   return (
-    <Tarjeta className="bg-zinc-50 dark:bg-zinc-900 border">
+    <Tarjeta className="bg-zinc-50 border">
       <ContenidoTarjeta className="p-4 flex flex-col gap-3">
         <div className="flex items-center justify-between">
           <span className="text-xs font-semibold text-muted-foreground flex items-center gap-1">
             <Award size={14} className="text-amber-500" />
-            Mejor Fitness HistÃ³rico
+            Mejor Fitness Histórico
           </span>
-          <span className="text-sm font-extrabold text-amber-600 dark:text-amber-400">
+          <span className="text-sm font-extrabold text-amber-600">
             {mejorIndividuoHistorico.fitness.toFixed(1)}
           </span>
         </div>
@@ -29,7 +29,7 @@ export function PanelMetricasLaberinto({ mejorIndividuoHistorico }: Props) {
         </div>
         <div className="flex items-center justify-between border-t pt-2">
           <span className="text-xs font-semibold text-muted-foreground">Distancia Euclidiana final</span>
-          <span className="text-xs font-bold text-zinc-800 dark:text-zinc-200">
+          <span className="text-xs font-bold text-zinc-800">
             {mejorIndividuoHistorico.distanciaFinal.toFixed(2)} casillas
           </span>
         </div>
@@ -37,4 +37,5 @@ export function PanelMetricasLaberinto({ mejorIndividuoHistorico }: Props) {
     </Tarjeta>
   );
 }
+
 

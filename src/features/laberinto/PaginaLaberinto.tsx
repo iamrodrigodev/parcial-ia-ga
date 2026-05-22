@@ -46,23 +46,23 @@ export function PaginaLaberinto() {
 
   const colorPorGen = (gen: number) => {
     switch (gen) {
-      case 0: return 'text-zinc-400 bg-zinc-100 dark:bg-zinc-900 border-zinc-200 dark:border-zinc-800';
-      case 1: return 'text-blue-500 bg-blue-50 dark:bg-blue-950/30 border-blue-200 dark:border-blue-900';
-      case 2: return 'text-purple-500 bg-purple-50 dark:bg-purple-950/30 border-purple-200 dark:border-purple-900';
-      case 3: return 'text-emerald-500 bg-emerald-50 dark:bg-emerald-950/30 border-emerald-200 dark:border-emerald-900';
-      case 4: return 'text-rose-500 bg-rose-50 dark:bg-rose-950/30 border-rose-200 dark:border-rose-900';
+      case 0: return 'text-zinc-400 bg-zinc-100 border-zinc-200';
+      case 1: return 'text-blue-500 bg-blue-50 border-blue-200';
+      case 2: return 'text-purple-500 bg-purple-50 border-purple-200';
+      case 3: return 'text-emerald-500 bg-emerald-50 border-emerald-200';
+      case 4: return 'text-rose-500 bg-rose-50 border-rose-200';
       default: return 'text-zinc-500 bg-zinc-100';
     }
   };
 
   return (
-    <div className="container page-stack">
+    <div className="container page-stack font-sans">
       {/* Title Header */}
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b pb-5 mb-4">
         <div>
-          <h1 className="text-3xl font-extrabold tracking-tight bg-gradient-to-r from-zinc-900 to-zinc-600 dark:from-white dark:to-zinc-400 bg-clip-text text-transparent flex items-center gap-2">
-            <Dna className="text-zinc-900 dark:text-white" size={32} />
-            ResoluciÃ³n de Laberintos con Algoritmo GenÃ©tico
+          <h1 className="text-3xl font-extrabold tracking-tight bg-gradient-to-r from-zinc-900 to-zinc-600 bg-clip-text text-transparent flex items-center gap-2">
+            <Dna className="text-zinc-900" size={32} />
+            Resolución de Laberintos con Algoritmo Genético
           </h1>
           <p className="text-muted-foreground text-sm mt-1">
             Simula poblaciones evolutivas cruzando cromosomas de movimiento para resolver laberintos discretos.
@@ -79,11 +79,11 @@ export function PaginaLaberinto() {
             <span>{reproduciendo ? 'Pausar' : 'Iniciar'}</span>
           </Boton>
           <Boton
-            variante="secundario"
+            variante="primario"
             icono={RotateCcw}
             onClick={reiniciarPoblacion}
-            className="border"
-            title="Reiniciar SimulaciÃ³n"
+            className=""
+            title="Reiniciar Simulación"
           />
         </div>
       </div>
@@ -100,6 +100,7 @@ export function PaginaLaberinto() {
           />
 
           <PanelMetricasLaberinto mejorIndividuoHistorico={mejorIndividuoHistorico} />
+          <PanelNotasLaberinto />
         </div>
 
         {/* Right Side: Grid Laberinto, Controls & Population rendering */}
@@ -129,7 +130,6 @@ export function PaginaLaberinto() {
             obtenerIconoMovimiento={obtenerIconoMovimiento}
             colorPorGen={colorPorGen}
           />
-          <PanelNotasLaberinto />
 
         </div>
 
@@ -137,3 +137,4 @@ export function PaginaLaberinto() {
     </div>
   );
 }
+

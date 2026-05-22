@@ -20,7 +20,7 @@ export function PanelCromosomaLaberinto({ mejorIndividuoGeneracion, pasoSimulaci
             <Target size={18} className="text-indigo-600" />
             <TituloTarjeta className="text-base font-bold">Cromosoma del Mejor Individuo Actual</TituloTarjeta>
           </div>
-          <span className="text-xs bg-indigo-50 text-indigo-700 dark:bg-indigo-950/40 dark:text-indigo-300 font-bold px-2 py-0.5 rounded border border-indigo-150">
+          <span className="text-xs bg-indigo-50 text-indigo-700 font-bold px-2 py-0.5 rounded border border-indigo-150">
             Aptitud: {mejorIndividuoGeneracion.fitness.toFixed(1)}
           </span>
         </div>
@@ -29,7 +29,7 @@ export function PanelCromosomaLaberinto({ mejorIndividuoGeneracion, pasoSimulaci
         </DescripcionTarjeta>
       </EncabezadoTarjeta>
       <ContenidoTarjeta className="pb-4 pt-0">
-        <div className="flex flex-wrap gap-1 bg-zinc-50 dark:bg-zinc-900 p-3 rounded-lg border max-h-[140px] overflow-y-auto">
+        <div className="flex flex-wrap gap-1 bg-zinc-50 p-3 rounded-lg border max-h-[140px] overflow-y-auto">
           {mejorIndividuoGeneracion.cromosoma.map((gen, idx) => {
             const activeGeneIndex = mejorIndividuoGeneracion.trayectoria[pasoSimulacion]?.geneIndex ?? -1;
             const esPasoActivo = idx <= activeGeneIndex;
@@ -57,4 +57,5 @@ export function PanelCromosomaLaberinto({ mejorIndividuoGeneracion, pasoSimulaci
     </Tarjeta>
   );
 }
+
 

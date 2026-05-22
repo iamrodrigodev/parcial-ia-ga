@@ -148,9 +148,9 @@ export const MAPA_DIFICIL: MapaLaberinto = [
 export const MAPA_GIGANTE: MapaLaberinto = generarMapaGrande30x30();
 
 export const MAPAS_PREDEFINIDOS = [
-  { id: "facil", nombre: "Laberinto FÃ¡cil (8x8)", mapa: MAPA_FACIL },
+  { id: "facil", nombre: "Laberinto Fácil (8x8)", mapa: MAPA_FACIL },
   { id: "medio", nombre: "Laberinto Medio (12x12)", mapa: MAPA_MEDIO },
-  { id: "dificil", nombre: "Laberinto DifÃ­cil (16x16)", mapa: MAPA_DIFICIL },
+  { id: "dificil", nombre: "Laberinto Difícil (16x16)", mapa: MAPA_DIFICIL },
   { id: "gigante", nombre: "Laberinto Grande (30x30)", mapa: MAPA_GIGANTE },
 ];
 

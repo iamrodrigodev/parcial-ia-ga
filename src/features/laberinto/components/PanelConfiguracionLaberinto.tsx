@@ -41,18 +41,50 @@ export function PanelConfiguracionLaberinto({ config, mapaId, setMapaId, cambiar
           </div>
           <div className="flex flex-col gap-1.5">
             <label className="text-xs font-semibold text-zinc-700">Límite Pasos (N)</label>
-            <Entrada type="number" min={5} max={200} value={config.limitePasos} onChange={(e) => cambiarConfiguracion("limitePasos", Math.max(5, parseInt(e.target.value) || 5))} />
+            <Entrada
+              type="number"
+              min={5}
+              max={150}
+              value={config.limitePasos}
+              onChange={(e) => cambiarConfiguracion("limitePasos", Math.max(5, Math.min(150, parseInt(e.target.value) || 5)))}
+            />
           </div>
         </div>
 
         <div className="grid grid-cols-2 gap-3">
           <div className="flex flex-col gap-1.5">
             <label className="text-xs font-semibold text-zinc-700">Tasa Mutación</label>
-            <Entrada type="number" step={0.01} min={0} max={1} value={config.tasaMutacion} onChange={(e) => cambiarConfiguracion("tasaMutacion", Math.max(0, Math.min(1, parseFloat(e.target.value) || 0)))} />
+            <div className="flex items-center gap-2">
+              <Entrada
+                type="number"
+                step={1}
+                min={0}
+                max={100}
+                value={Math.round(config.tasaMutacion * 100)}
+                onChange={(e) =>
+                  cambiarConfiguracion(
+                    "tasaMutacion",
+                    Math.max(0, Math.min(1, (parseFloat(e.target.value) || 0) / 100))
+                  )
+                }
+              />
+              <span className="text-sm font-semibold text-muted-foreground select-none">%</span>
+            </div>
           </div>
           <div className="flex flex-col gap-1.5">
             <label className="text-xs font-semibold text-zinc-700">Torneo (K)</label>
-            <Entrada type="number" min={2} max={20} value={config.tamanoTorneo} onChange={(e) => cambiarConfiguracion("tamanoTorneo", Math.max(2, parseInt(e.target.value) || 2))} />
+            <Entrada
+              type="number"
+              min={2}
+              max={config.cantidadIndividuos}
+              value={config.tamanoTorneo}
+              onChange={(e) =>
+                cambiarConfiguracion(
+                  "tamanoTorneo",
+                  Math.max(2, Math.min(config.cantidadIndividuos, parseInt(e.target.value) || 2))
+                )
+              }
+            />
           </div>
         </div>
 

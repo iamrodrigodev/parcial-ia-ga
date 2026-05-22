@@ -7,6 +7,7 @@ export interface IndividuoLaberinto {
   trayectoria: Posicion[];
   colisiones: number;
   pasosDados: number;
+  pasosQuietos: number;
   alcanzoMeta: boolean;
   distanciaFinal: number;
 }

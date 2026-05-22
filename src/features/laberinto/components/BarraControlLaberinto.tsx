@@ -6,6 +6,7 @@ import { IndividuoLaberinto } from "@/features/laberinto/lib/algoritmo";
 interface Props {
   generacion: number;
   mejorIndividuoGeneracion: IndividuoLaberinto | null;
+  fitnessVisible: number | null;
   reproduciendo: boolean;
   avanzarUnaGeneracion: () => void;
   avanzar50Generaciones: () => void;
@@ -14,6 +15,7 @@ interface Props {
 export function BarraControlLaberinto({
   generacion,
   mejorIndividuoGeneracion,
+  fitnessVisible,
   reproduciendo,
   avanzarUnaGeneracion,
   avanzar50Generaciones,
@@ -29,7 +31,7 @@ export function BarraControlLaberinto({
         <div>
           <span className="text-xs text-muted-foreground font-semibold uppercase tracking-wider block">Mejor Fitness</span>
           <span className="text-2xl font-black tabular-nums text-zinc-950">
-            {mejorIndividuoGeneracion ? mejorIndividuoGeneracion.fitness.toFixed(1) : "-"}
+            {fitnessVisible !== null ? fitnessVisible.toFixed(1) : "-"}
           </span>
         </div>
         <div className="h-8 w-px bg-zinc-200" />

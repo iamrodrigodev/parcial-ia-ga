@@ -6,5 +6,15 @@ export function generarGenAleatorio(): number {
 
 export function crearIndividuoAleatorio(id: number, limitePasos: number): IndividuoLaberinto {
   const cromosoma: number[] = Array.from({ length: limitePasos }, () => generarGenAleatorio());
-  return { id, cromosoma, fitness: -Infinity, trayectoria: [], colisiones: 0, pasosDados: 0, alcanzoMeta: false, distanciaFinal: Infinity };
+  return {
+    id,
+    cromosoma,
+    fitness: -Infinity,
+    trayectoria: [],
+    colisiones: 0,
+    pasosDados: 0,
+    pasosQuietos: 0,
+    alcanzoMeta: false,
+    distanciaFinal: Infinity,
+  };
 }

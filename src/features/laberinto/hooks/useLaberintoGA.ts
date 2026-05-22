@@ -1,5 +1,5 @@
 ﻿import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import { ConfigLaberinto, CONFIGURACION_DEFECTO, MAPAS_PREDEFINIDOS, encontrarPosiciones } from "@/features/laberinto/lib/config";
+import { ConfigLaberinto, CONFIGURACION_DEFECTO, MAPAS_PREDEFINIDOS, MapaLaberinto, encontrarPosiciones } from "@/features/laberinto/lib/config";
 import { IndividuoLaberinto, crearIndividuoAleatorio, evaluarPoblacion, generarSiguienteGeneracion } from "@/features/laberinto/lib/algoritmo";
 
 export function useLaberintoGA() {
@@ -27,21 +27,25 @@ export function useLaberintoGA() {
     [mejorIndividuoGeneracion, pasoSimulacion]
   );
 
-  const reiniciarPoblacion = useCallback(() => {
-    setReproduciendo(false);
+  const crearPoblacionEvaluada = useCallback((configAplicada: ConfigLaberinto, mapaAplicado: MapaLaberinto) => {
     const nuevaPob: IndividuoLaberinto[] = [];
-    for (let i = 1; i <= config.cantidadIndividuos; i++) nuevaPob.push(crearIndividuoAleatorio(i, config.limitePasos));
-    const evaluada = evaluarPoblacion(nuevaPob, mapaActual, config);
+    for (let i = 1; i <= configAplicada.cantidadIndividuos; i++) nuevaPob.push(crearIndividuoAleatorio(i, configAplicada.limitePasos));
+    return evaluarPoblacion(nuevaPob, mapaAplicado, configAplicada);
+  }, []);
+
+  const reiniciarPoblacionCon = useCallback((configAplicada: ConfigLaberinto, mapaAplicado: MapaLaberinto) => {
+    setReproduciendo(false);
+    const evaluada = crearPoblacionEvaluada(configAplicada, mapaAplicado);
     setPoblacion(evaluada);
     setGeneracion(1);
     setPasoSimulacion(0);
     setMejorIndividuoHistorico(evaluada[0]);
     setHistorialMejorFitness([{ gen: 1, fitness: evaluada[0].fitness }]);
-  }, [config, mapaActual]);
+  }, [crearPoblacionEvaluada]);
 
   useEffect(() => {
-    reiniciarPoblacion();
-  }, [mapaId, config.cantidadIndividuos, config.limitePasos, reiniciarPoblacion]);
+    reiniciarPoblacionCon(config, mapaActual);
+  }, [mapaId, config.cantidadIndividuos, config.limitePasos, reiniciarPoblacionCon, mapaActual]);
 
   useEffect(() => {
     if (mejorIndividuoGeneracion && (!mejorIndividuoHistorico || mejorIndividuoGeneracion.fitness > mejorIndividuoHistorico.fitness)) {
@@ -96,8 +100,38 @@ export function useLaberintoGA() {
   }, [poblacion, mapaActual, config, generacion]);
 
   const cambiarConfiguracion = useCallback((campo: keyof ConfigLaberinto, valor: number) => {
-    setConfig((prev) => ({ ...prev, [campo]: valor }));
-  }, []);
+    setReproduciendo(false);
+    setPasoSimulacion(0);
+
+    const siguiente = { ...config, [campo]: valor };
+
+    if (campo === "cantidadIndividuos") {
+      siguiente.tamanoTorneo = Math.min(siguiente.tamanoTorneo, valor);
+    }
+
+    if (campo === "limitePasos") {
+      siguiente.limitePasos = Math.max(5, Math.min(150, valor));
+    }
+
+    if (campo === "tamanoTorneo") {
+      siguiente.tamanoTorneo = Math.min(valor, siguiente.cantidadIndividuos);
+    }
+
+    setConfig(siguiente);
+
+    if (campo === "penalizacionPaso" || campo === "penalizacionMuro" || campo === "recompensaMeta") {
+      if (poblacion.length > 0) {
+        const reevaluada = evaluarPoblacion(poblacion, mapaActual, siguiente);
+        setPoblacion(reevaluada);
+        setMejorIndividuoHistorico(reevaluada[0]);
+        setHistorialMejorFitness([{ gen: generacion, fitness: reevaluada[0].fitness }]);
+      }
+    }
+  }, [config, generacion, mapaActual, poblacion]);
+
+  const reiniciarPoblacion = useCallback(() => {
+    reiniciarPoblacionCon(config, mapaActual);
+  }, [config, mapaActual, reiniciarPoblacionCon]);
 
   return {
     config,

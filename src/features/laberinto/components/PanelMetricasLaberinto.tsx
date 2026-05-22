@@ -22,9 +22,9 @@ export function PanelMetricasLaberinto({ mejorIndividuoHistorico }: Props) {
           </span>
         </div>
         <div className="flex items-center justify-between border-t pt-2">
-          <span className="text-xs font-semibold text-muted-foreground">Colisiones / Pasos dados</span>
+          <span className="text-xs font-semibold text-muted-foreground">Colisiones / Pasos dados / Quietos</span>
           <span className="text-xs font-bold">
-            {mejorIndividuoHistorico.colisiones} choc. / {mejorIndividuoHistorico.pasosDados} pas.
+            {mejorIndividuoHistorico.colisiones} choc. / {mejorIndividuoHistorico.pasosDados} pas. / {mejorIndividuoHistorico.pasosQuietos} quietos
           </span>
         </div>
         <div className="flex items-center justify-between border-t pt-2">

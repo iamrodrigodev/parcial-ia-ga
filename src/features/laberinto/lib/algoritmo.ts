@@ -29,6 +29,7 @@ export function generarSiguienteGeneracion(
       trayectoria: [...elite.trayectoria],
       colisiones: elite.colisiones,
       pasosDados: elite.pasosDados,
+      pasosQuietos: elite.pasosQuietos,
       alcanzoMeta: elite.alcanzoMeta,
       distanciaFinal: elite.distanciaFinal,
     });
@@ -47,6 +48,7 @@ export function generarSiguienteGeneracion(
       trayectoria: [],
       colisiones: 0,
       pasosDados: 0,
+      pasosQuietos: 0,
       alcanzoMeta: false,
       distanciaFinal: Infinity,
     });

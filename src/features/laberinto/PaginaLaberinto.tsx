@@ -32,6 +32,9 @@ export function PaginaLaberinto() {
 
   const filas = mapaActual.length;
   const columnas = mapaActual[0].length;
+  const fitnessVisible = mejorIndividuoGeneracion
+    ? mejorIndividuoGeneracion.fitness * (maxPasosSimulacion > 0 ? pasoSimulacion / maxPasosSimulacion : 1)
+    : null;
 
   const obtenerIconoMovimiento = (gen: number) => {
     switch (gen) {
@@ -108,6 +111,7 @@ export function PaginaLaberinto() {
           <BarraControlLaberinto
             generacion={generacion}
             mejorIndividuoGeneracion={mejorIndividuoGeneracion}
+            fitnessVisible={fitnessVisible}
             reproduciendo={reproduciendo}
             avanzarUnaGeneracion={avanzarUnaGeneracion}
             avanzar50Generaciones={avanzar50Generaciones}

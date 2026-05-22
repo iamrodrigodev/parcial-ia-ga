@@ -1,5 +1,10 @@
 import { encontrarPosiciones, type ConfigLaberinto, type MapaLaberinto } from "@/features/laberinto/lib/config";
-import { calcularRecompensaRutaSolucion16x16, esMapa16x16 } from "@/features/laberinto/lib/distancia";
+import {
+  calcularRecompensaRutaSolucion16x16,
+  calcularRecompensaRutaSolucion30x30,
+  esMapa16x16,
+  esMapa30x30,
+} from "@/features/laberinto/lib/distancia";
 import type { IndividuoLaberinto } from "@/features/laberinto/lib/tipos";
 import { simularRecorrido } from "@/features/laberinto/lib/simulacion";
 
@@ -31,12 +36,16 @@ export function calcularFitness(
 
 export function evaluarPoblacion(poblacion: IndividuoLaberinto[], mapa: MapaLaberinto, config: ConfigLaberinto): IndividuoLaberinto[] {
   const posiciones = encontrarPosiciones(mapa);
-  const esMapaGrande = esMapa16x16(mapa);
+  const esMapaGrande = esMapa16x16(mapa) || esMapa30x30(mapa);
 
   const evaluados = poblacion.map((ind) => {
     const sim = simularRecorrido(ind.cromosoma, mapa, config, posiciones);
     const costoDistancia = esMapaGrande ? 0 : calcularCostoDistanciaEuclidiana(sim.distanciaFinal, mapa);
-    const recompensaRuta = esMapaGrande ? calcularRecompensaRutaSolucion16x16(sim.trayectoria, config.recompensaCasilleroCorrecto) : 0;
+    const recompensaRuta = esMapa16x16(mapa)
+      ? calcularRecompensaRutaSolucion16x16(sim.trayectoria, config.recompensaCasilleroCorrecto)
+      : esMapa30x30(mapa)
+      ? calcularRecompensaRutaSolucion30x30(sim.trayectoria, config.recompensaCasilleroCorrecto)
+      : 0;
     const fitness = calcularFitness(costoDistancia, sim.colisiones, sim.pasosDados, sim.alcanzoMeta, config) + recompensaRuta;
 
     return {

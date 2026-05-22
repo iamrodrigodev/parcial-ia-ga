@@ -100,7 +100,7 @@ export function useLaberintoEvolutivo(setPasoSimulacion: (n: number) => void) {
     setPasoSimulacion(0);
     const siguiente = { ...config, [campo]: valor };
     if (campo === "cantidadIndividuos") siguiente.tamanoTorneo = Math.min(siguiente.tamanoTorneo, valor);
-    if (campo === "limitePasos") siguiente.limitePasos = Math.max(5, Math.min(150, valor));
+    if (campo === "limitePasos") siguiente.limitePasos = Math.max(5, valor);
     if (campo === "tamanoTorneo") siguiente.tamanoTorneo = Math.min(valor, siguiente.cantidadIndividuos);
     setConfig(siguiente);
     if (campo === "penalizacionPaso" || campo === "penalizacionMuro" || campo === "recompensaMeta" || campo === "recompensaCasilleroCorrecto") {

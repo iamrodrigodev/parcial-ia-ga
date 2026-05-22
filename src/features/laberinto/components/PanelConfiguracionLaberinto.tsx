@@ -113,10 +113,9 @@ export function PanelConfiguracionLaberinto({ config, mapaId, setMapaId, cambiar
             <Entrada
               type="number"
               min={5}
-              max={150}
               value={draft.limitePasos}
               onChange={(e) => setDraft((d) => ({ ...d, limitePasos: e.target.value }))}
-              onBlur={() => confirmarEntero("limitePasos", "limitePasos", 5, 150, config.limitePasos)}
+              onBlur={() => confirmarEntero("limitePasos", "limitePasos", 5, Number.MAX_SAFE_INTEGER, config.limitePasos)}
             />
           </div>
         </div>
@@ -202,7 +201,7 @@ export function PanelConfiguracionLaberinto({ config, mapaId, setMapaId, cambiar
                 )
               }
             />
-            <span className="text-[11px] text-muted-foreground">Solo aplica en laberintos 16x16.</span>
+            <span className="text-[11px] text-muted-foreground">Solo aplica en laberintos 16x16 y 30x30.</span>
             <label className="flex items-center gap-2 rounded-md border border-dashed border-zinc-300 px-3 py-2 text-sm text-zinc-700">
               <input
                 type="checkbox"

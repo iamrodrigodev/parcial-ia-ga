@@ -1,4 +1,5 @@
-import { MAPA_DIFICIL, type MapaLaberinto, type Posicion } from "@/features/laberinto/lib/config";
+import { MAPA_DIFICIL, MAPA_GIGANTE, type MapaLaberinto, type Posicion } from "@/features/laberinto/lib/config";
+import { obtenerRutaOptimaPosiciones } from "@/features/laberinto/lib/rutaOptima";
 
 export const SECUENCIA_SOLUCION_16X16: readonly number[] = [
   1, 3, 3, 1, 1, 4, 4, 1, 1, 1, 1, 3, 3, 2, 2, 3,
@@ -21,6 +22,10 @@ const MOVIMIENTOS: Record<Direccion, { dx: number; dy: number }> = {
 
 export function esMapa16x16(mapa: MapaLaberinto): boolean {
   return mapa.length === 16 && mapa.every((fila) => fila.length === 16);
+}
+
+export function esMapa30x30(mapa: MapaLaberinto): boolean {
+  return mapa.length === 30 && mapa.every((fila) => fila.length === 30);
 }
 
 function obtenerInicioMapa(mapa: MapaLaberinto): Posicion {
@@ -86,7 +91,11 @@ export const CASILLEROS_SOLUCION_16X16 = new Set(
   construirRutaSolucion16x16(MAPA_DIFICIL).map((posicion) => `${posicion.x},${posicion.y}`)
 );
 
-export function calcularRecompensaRutaSolucion16x16(trayectoria: Posicion[], recompensaPorCasillero: number): number {
+export const CASILLEROS_SOLUCION_30X30 = new Set(
+  obtenerRutaOptimaPosiciones(MAPA_GIGANTE).map((posicion) => `${posicion.x},${posicion.y}`)
+);
+
+function calcularRecompensaCasilleros(trayectoria: Posicion[], recompensaPorCasillero: number, casillerosCorrectos: Set<string>): number {
   const visitados = new Set<string>();
   let recompensa = 0;
 
@@ -96,7 +105,7 @@ export function calcularRecompensaRutaSolucion16x16(trayectoria: Posicion[], rec
     }
 
     const clave = `${posicion.x},${posicion.y}`;
-    if (!CASILLEROS_SOLUCION_16X16.has(clave) || visitados.has(clave)) {
+    if (!casillerosCorrectos.has(clave) || visitados.has(clave)) {
       continue;
     }
 
@@ -105,4 +114,12 @@ export function calcularRecompensaRutaSolucion16x16(trayectoria: Posicion[], rec
   }
 
   return recompensa;
+}
+
+export function calcularRecompensaRutaSolucion16x16(trayectoria: Posicion[], recompensaPorCasillero: number): number {
+  return calcularRecompensaCasilleros(trayectoria, recompensaPorCasillero, CASILLEROS_SOLUCION_16X16);
+}
+
+export function calcularRecompensaRutaSolucion30x30(trayectoria: Posicion[], recompensaPorCasillero: number): number {
+  return calcularRecompensaCasilleros(trayectoria, recompensaPorCasillero, CASILLEROS_SOLUCION_30X30);
 }

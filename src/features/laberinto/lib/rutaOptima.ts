@@ -4,6 +4,10 @@ type Direccion = 1 | 2 | 3 | 4;
 
 const rutasOptimasCache = new WeakMap<MapaLaberinto, readonly Direccion[]>();
 
+function esDireccionMovimiento(gen: number): gen is Direccion {
+  return gen === 1 || gen === 2 || gen === 3 || gen === 4;
+}
+
 function obtenerInicioMapa(mapa: MapaLaberinto): Posicion {
   for (let y = 0; y < mapa.length; y++) {
     for (let x = 0; x < mapa[y].length; x++) {
@@ -81,6 +85,22 @@ function reconstruirRutaOptimaDirecciones(mapa: MapaLaberinto): readonly Direcci
   return [];
 }
 
+function reconstruirRutaOptimaPosiciones(mapa: MapaLaberinto, direcciones: readonly Direccion[]): readonly Posicion[] {
+  const ruta: Posicion[] = [];
+  const inicio = obtenerInicioMapa(mapa);
+  let posicionActual = { ...inicio };
+
+  for (const direccion of direcciones) {
+    if (direccion === 1) posicionActual = { x: posicionActual.x + 1, y: posicionActual.y };
+    else if (direccion === 2) posicionActual = { x: posicionActual.x - 1, y: posicionActual.y };
+    else if (direccion === 3) posicionActual = { x: posicionActual.x, y: posicionActual.y + 1 };
+    else if (direccion === 4) posicionActual = { x: posicionActual.x, y: posicionActual.y - 1 };
+    ruta.push({ ...posicionActual });
+  }
+
+  return ruta;
+}
+
 export function calcularLongitudPrefijoRutaSolucion(mapa: MapaLaberinto, cromosoma: number[]): number {
   const rutaSolucion = rutasOptimasCache.get(mapa) ?? reconstruirRutaOptimaDirecciones(mapa);
   if (!rutasOptimasCache.has(mapa)) {
@@ -91,6 +111,9 @@ export function calcularLongitudPrefijoRutaSolucion(mapa: MapaLaberinto, cromoso
   let prefijo = 0;
 
   for (let i = 0; i < limite; i++) {
+    if (!esDireccionMovimiento(cromosoma[i])) {
+      break;
+    }
     if (cromosoma[i] !== rutaSolucion[i]) {
       break;
     }
@@ -98,4 +121,13 @@ export function calcularLongitudPrefijoRutaSolucion(mapa: MapaLaberinto, cromoso
   }
 
   return prefijo;
+}
+
+export function obtenerRutaOptimaPosiciones(mapa: MapaLaberinto): readonly Posicion[] {
+  const rutaDirecciones = rutasOptimasCache.get(mapa) ?? reconstruirRutaOptimaDirecciones(mapa);
+  if (!rutasOptimasCache.has(mapa)) {
+    rutasOptimasCache.set(mapa, rutaDirecciones);
+  }
+
+  return reconstruirRutaOptimaPosiciones(mapa, rutaDirecciones);
 }

@@ -1,4 +1,5 @@
-﻿import { Flag, MapPin } from "lucide-react";
+import { useMemo } from "react";
+import { Flag, MapPin } from "lucide-react";
 import { motion } from "framer-motion";
 import { IndividuoLaberinto } from "@/features/laberinto/lib/algoritmo";
 import { Posicion } from "@/features/laberinto/lib/config";
@@ -16,6 +17,25 @@ interface Props {
 }
 
 export function GridLaberinto({ mapaActual, filas, columnas, caminoDestacado, poblacion, pasoSimulacion, mejorIndividuoGeneracion, inicio, maxPasosSimulacion }: Props) {
+  const celdasCamino = useMemo(() => {
+    const set = new Set<string>();
+    for (const p of caminoDestacado) set.add(`${p.x},${p.y}`);
+    return set;
+  }, [caminoDestacado]);
+
+  const individuosPorCelda = useMemo(() => {
+    const mapa = new Map<string, IndividuoLaberinto[]>();
+    for (const ind of poblacion) {
+      const idx = Math.min(pasoSimulacion, ind.trayectoria.length - 1);
+      const pos = ind.trayectoria[idx] || inicio;
+      const key = `${pos.x},${pos.y}`;
+      const bucket = mapa.get(key);
+      if (bucket) bucket.push(ind);
+      else mapa.set(key, [ind]);
+    }
+    return mapa;
+  }, [poblacion, pasoSimulacion, inicio]);
+
   return (
     <div className="flex flex-col items-center bg-zinc-50 rounded-2xl border p-6 shadow-inner relative overflow-hidden">
       <div className="absolute top-2 right-3 flex items-center gap-1">
@@ -32,12 +52,9 @@ export function GridLaberinto({ mapaActual, filas, columnas, caminoDestacado, po
             const esInicio = celda === "S";
             const esFin = celda === "E";
             const esPared = celda === "1";
-            const esCaminoMejor = caminoDestacado.some((p) => p.x === x && p.y === y);
-            const individuosEnEstaCelda = poblacion.filter((ind) => {
-              const idx = Math.min(pasoSimulacion, ind.trayectoria.length - 1);
-              const pos = ind.trayectoria[idx] || inicio;
-              return pos.x === x && pos.y === y;
-            });
+            const keyCelda = `${x},${y}`;
+            const esCaminoMejor = celdasCamino.has(keyCelda);
+            const individuosEnEstaCelda = individuosPorCelda.get(keyCelda) ?? [];
 
             return (
               <div
@@ -99,5 +116,3 @@ export function GridLaberinto({ mapaActual, filas, columnas, caminoDestacado, po
     </div>
   );
 }
-
-

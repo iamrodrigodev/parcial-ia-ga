@@ -1,7 +1,8 @@
-﻿import { Sparkles, Target } from "lucide-react";
+import { memo } from "react";
+import { Sparkles, Target } from "lucide-react";
 import { Tarjeta } from "@/components/ui/tarjeta";
 
-export function PanelNotasLaberinto() {
+function PanelNotasLaberintoBase() {
   return (
     <div className="flex flex-col gap-4">
       <Tarjeta className="border p-4 bg-muted/5">
@@ -27,4 +28,4 @@ export function PanelNotasLaberinto() {
   );
 }
 
-
+export const PanelNotasLaberinto = memo(PanelNotasLaberintoBase);

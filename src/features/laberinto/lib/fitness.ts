@@ -19,7 +19,16 @@ export function evaluarPoblacion(poblacion: IndividuoLaberinto[], mapa: MapaLabe
   const evaluados = poblacion.map((ind) => {
     const sim = simularRecorrido(ind.cromosoma, mapa, config);
     const fitness = calcularFitness(sim.distanciaFinal, sim.colisiones, sim.pasosDados, sim.alcanzoMeta, config);
-    return { ...ind, fitness, trayectoria: sim.trayectoria, colisiones: sim.colisiones, pasosDados: sim.pasosDados, alcanzoMeta: sim.alcanzoMeta, distanciaFinal: sim.distanciaFinal };
+    return {
+      ...ind,
+      fitness,
+      trayectoria: sim.trayectoria,
+      colisiones: sim.colisiones,
+      pasosDados: sim.pasosDados,
+      pasosQuietos: sim.pasosQuietos,
+      alcanzoMeta: sim.alcanzoMeta,
+      distanciaFinal: sim.distanciaFinal,
+    };
   });
   return evaluados.sort((a, b) => b.fitness - a.fitness);
 }

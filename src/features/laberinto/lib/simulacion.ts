@@ -5,13 +5,14 @@ export function simularRecorrido(
   cromosoma: number[],
   mapa: MapaLaberinto,
   _config: ConfigLaberinto
-): { trayectoria: Posicion[]; colisiones: number; pasosDados: number; alcanzoMeta: boolean; distanciaFinal: number } {
+): { trayectoria: Posicion[]; colisiones: number; pasosDados: number; pasosQuietos: number; alcanzoMeta: boolean; distanciaFinal: number } {
   const { inicio, fin } = encontrarPosiciones(mapa);
   const alto = mapa.length;
   const ancho = mapa[0].length;
   const trayectoria: Posicion[] = [{ ...inicio, geneIndex: -1 }];
   let colisiones = 0;
   let pasosDados = 0;
+  let pasosQuietos = 0;
   let alcanzoMeta = false;
   let posActual = { ...inicio };
 
@@ -27,19 +28,23 @@ export function simularRecorrido(
 
     const esFuera = nexX < 0 || nexX >= ancho || neyY < 0 || neyY >= alto;
     const esPared = !esFuera && mapa[neyY][nexX] === "1";
-    if (esFuera || esPared) colisiones++;
-    else if (nexX !== posActual.x || neyY !== posActual.y) {
+    if (esFuera || esPared) {
+      colisiones++;
+      pasosQuietos++;
+    } else if (nexX !== posActual.x || neyY !== posActual.y) {
       posActual = { x: nexX, y: neyY };
       trayectoria.push({ ...posActual, geneIndex: i });
       if (mapa[posActual.y][posActual.x] === "E") {
         alcanzoMeta = true;
         break;
       }
+    } else {
+      pasosQuietos++;
     }
   }
 
   const dx = posActual.x - fin.x;
   const dy = posActual.y - fin.y;
   const distanciaFinal = Math.sqrt(dx * dx + dy * dy);
-  return { trayectoria, colisiones, pasosDados, alcanzoMeta, distanciaFinal };
+  return { trayectoria, colisiones, pasosDados, pasosQuietos, alcanzoMeta, distanciaFinal };
 }

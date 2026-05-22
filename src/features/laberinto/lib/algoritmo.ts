@@ -2,8 +2,9 @@ import type { ConfigLaberinto, MapaLaberinto } from "@/features/laberinto/lib/co
 import type { IndividuoLaberinto } from "@/features/laberinto/lib/tipos";
 import { seleccionTorneo } from "@/features/laberinto/lib/seleccion";
 import { crossoverUnPunto } from "@/features/laberinto/lib/cruce";
-import { mutacionCiclica } from "@/features/laberinto/lib/mutacion";
+import { mutacionAleatoria } from "@/features/laberinto/lib/mutacion";
 import { evaluarPoblacion } from "@/features/laberinto/lib/fitness";
+import { calcularLongitudPrefijoRutaSolucion } from "@/features/laberinto/lib/rutaOptima";
 
 export { crearIndividuoAleatorio, generarGenAleatorio } from "@/features/laberinto/lib/agentes";
 export { simularRecorrido } from "@/features/laberinto/lib/simulacion";
@@ -39,7 +40,10 @@ export function generarSiguienteGeneracion(
     const padreA = seleccionTorneo(poblacionEvaluada, config.tamanoTorneo);
     const padreB = seleccionTorneo(poblacionEvaluada, config.tamanoTorneo);
     let hijoCromosoma = crossoverUnPunto(padreA.cromosoma, padreB.cromosoma);
-    hijoCromosoma = mutacionCiclica(hijoCromosoma, config.tasaMutacion);
+    const prefijoProtegido = config.aplicarOptimizacionPrefijo
+      ? calcularLongitudPrefijoRutaSolucion(mapa, hijoCromosoma)
+      : 0;
+    hijoCromosoma = mutacionAleatoria(hijoCromosoma, config.tasaMutacion, prefijoProtegido);
 
     siguientePoblacion.push({
       id: idContador++,

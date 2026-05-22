@@ -103,7 +103,7 @@ export function useLaberintoEvolutivo(setPasoSimulacion: (n: number) => void) {
     if (campo === "limitePasos") siguiente.limitePasos = Math.max(5, Math.min(150, valor));
     if (campo === "tamanoTorneo") siguiente.tamanoTorneo = Math.min(valor, siguiente.cantidadIndividuos);
     setConfig(siguiente);
-    if (campo === "penalizacionPaso" || campo === "penalizacionMuro" || campo === "recompensaMeta") {
+    if (campo === "penalizacionPaso" || campo === "penalizacionMuro" || campo === "recompensaMeta" || campo === "recompensaCasilleroCorrecto") {
       const reevaluada = evaluarPoblacion(poblacion, mapaActual, siguiente);
       setPoblacion(reevaluada);
       setMejorIndividuoHistorico(reevaluada[0]);
@@ -111,5 +111,9 @@ export function useLaberintoEvolutivo(setPasoSimulacion: (n: number) => void) {
     }
   }, [config, generacion, mapaActual, poblacion, setPasoSimulacion]);
 
-  return { config, mapaId, setMapaId, mapaActual, inicio, poblacion, generacion, reproduciendo, setReproduciendo, mejorIndividuoHistorico, historialMejorFitness, mejorIndividuoGeneracion, exitosGeneracionActual, reiniciarPoblacionCon, avanzarPasoSimulacion, avanzarUnaGeneracion, avanzar50Generaciones, cambiarConfiguracion };
+  const cambiarAplicarOptimizacionPrefijo = useCallback((valor: boolean) => {
+    setConfig((actual) => ({ ...actual, aplicarOptimizacionPrefijo: valor }));
+  }, []);
+
+  return { config, mapaId, setMapaId, mapaActual, inicio, poblacion, generacion, reproduciendo, setReproduciendo, mejorIndividuoHistorico, historialMejorFitness, mejorIndividuoGeneracion, exitosGeneracionActual, reiniciarPoblacionCon, avanzarPasoSimulacion, avanzarUnaGeneracion, avanzar50Generaciones, cambiarConfiguracion, cambiarAplicarOptimizacionPrefijo };
 }

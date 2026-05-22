@@ -6,6 +6,8 @@ export interface ConfigLaberinto {
   penalizacionPaso: number;
   penalizacionMuro: number;
   recompensaMeta: number;
+  recompensaCasilleroCorrecto: number;
+  aplicarOptimizacionPrefijo: boolean;
 }
 
 export type CeldaLaberinto = "0" | "1" | "S" | "E";
@@ -25,6 +27,8 @@ export const CONFIGURACION_DEFECTO: ConfigLaberinto = {
   penalizacionPaso: -1,
   penalizacionMuro: -12,
   recompensaMeta: 600,
+  recompensaCasilleroCorrecto: 12,
+  aplicarOptimizacionPrefijo: false,
 };
 
 export const MAPA_FACIL: MapaLaberinto = [

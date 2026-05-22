@@ -28,6 +28,7 @@ export function PaginaLaberinto() {
     avanzarUnaGeneracion,
     avanzar50Generaciones,
     cambiarConfiguracion,
+    cambiarAplicarOptimizacionPrefijo,
   } = useLaberintoGA();
 
   const filas = mapaActual.length;
@@ -101,6 +102,7 @@ export function PaginaLaberinto() {
             mapaId={mapaId}
             setMapaId={setMapaId}
             cambiarConfiguracion={cambiarConfiguracion}
+            cambiarAplicarOptimizacionPrefijo={cambiarAplicarOptimizacionPrefijo}
           />
 
           <PanelMetricasLaberinto

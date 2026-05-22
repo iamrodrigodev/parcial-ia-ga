@@ -4,8 +4,8 @@ import { Insignia } from "@/components/ui/insignia";
 import { Boton } from "@/components/ui/boton";
 import { ArrowRight } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
-import { individuosDeEjemplo } from "@/lib/geneticos/datos";
-import { ejecutarSeleccionTorneo, ResultadoTorneo } from "@/lib/geneticos/seleccion";
+import { individuosDeEjemplo } from "@/features/geneticos/lib/datos";
+import { ejecutarSeleccionTorneo, ResultadoTorneo } from "@/features/geneticos/lib/seleccion";
 
 const poblacionTorneo = [
   ...individuosDeEjemplo,

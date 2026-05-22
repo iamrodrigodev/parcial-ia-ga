@@ -1,8 +1,8 @@
-import { createBrowserRouter } from "react-router-dom";
+﻿import { createBrowserRouter } from "react-router-dom";
 import { PlantillaPrincipal } from "@/layouts/PlantillaPrincipal";
 import { PaginaInicio } from "@/pages/PaginaInicio";
 import { PaginaOperadores } from "@/pages/PaginaOperadores";
-import { PaginaLaberinto } from "@/pages/PaginaLaberinto";
+import { PaginaLaberinto } from "@/features/laberinto/PaginaLaberinto";
 import { PaginaNoEncontrada } from "@/pages/PaginaNoEncontrada";
 
 export const enrutador = createBrowserRouter([
@@ -26,3 +26,4 @@ export const enrutador = createBrowserRouter([
     ],
   },
 ]);
+

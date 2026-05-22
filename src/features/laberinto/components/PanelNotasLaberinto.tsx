@@ -3,9 +3,9 @@ import { Tarjeta } from "@/components/ui/tarjeta";
 
 export function PanelNotasLaberinto() {
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+    <div className="flex flex-col gap-4">
       <Tarjeta className="border p-4 bg-muted/5">
-        <h4 className="text-xs font-extrabold text-zinc-800 dark:text-zinc-200 uppercase tracking-wide flex items-center gap-1">
+        <h4 className="text-xs font-extrabold text-zinc-800 uppercase tracking-wide flex items-center gap-1">
           <Sparkles size={13} className="text-zinc-600" />
           Convergencia Evolutiva
         </h4>
@@ -15,7 +15,7 @@ export function PanelNotasLaberinto() {
       </Tarjeta>
 
       <Tarjeta className="border p-4 bg-muted/5">
-        <h4 className="text-xs font-extrabold text-zinc-800 dark:text-zinc-200 uppercase tracking-wide flex items-center gap-1">
+        <h4 className="text-xs font-extrabold text-zinc-800 uppercase tracking-wide flex items-center gap-1">
           <Target size={13} className="text-zinc-600" />
           Cómo Resolver Laberintos
         </h4>
@@ -26,4 +26,5 @@ export function PanelNotasLaberinto() {
     </div>
   );
 }
+
 

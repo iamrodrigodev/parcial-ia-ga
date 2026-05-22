@@ -1,9 +1,22 @@
-import type { ConfigLaberinto, MapaLaberinto } from "@/features/laberinto/lib/config";
+import { encontrarPosiciones, type ConfigLaberinto, type MapaLaberinto } from "@/features/laberinto/lib/config";
 import type { IndividuoLaberinto } from "@/features/laberinto/lib/tipos";
 import { simularRecorrido } from "@/features/laberinto/lib/simulacion";
 
+function calcularCostoDistancia(distanciaEuclidiana: number, mapa: MapaLaberinto): number {
+  const filas = mapa.length;
+  const columnas = mapa[0]?.length ?? 0;
+  const maxDimension = Math.max(filas, columnas);
+
+  if (maxDimension <= 12) {
+    return distanciaEuclidiana;
+  }
+
+  const distanciaCuadraticaNormalizada = (distanciaEuclidiana * distanciaEuclidiana) / maxDimension;
+  return distanciaCuadraticaNormalizada;
+}
+
 export function calcularFitness(
-  distanciaFinal: number,
+  costoDistancia: number,
   colisiones: number,
   pasosDados: number,
   alcanzoMeta: boolean,
@@ -12,13 +25,15 @@ export function calcularFitness(
   const penalizacionMuroTotal = colisiones * config.penalizacionMuro;
   const penalizacionPasoTotal = pasosDados * config.penalizacionPaso;
   const recompensa = alcanzoMeta ? config.recompensaMeta : 0;
-  return -1 * distanciaFinal + penalizacionMuroTotal + penalizacionPasoTotal + recompensa;
+  return -1 * costoDistancia + penalizacionMuroTotal + penalizacionPasoTotal + recompensa;
 }
 
 export function evaluarPoblacion(poblacion: IndividuoLaberinto[], mapa: MapaLaberinto, config: ConfigLaberinto): IndividuoLaberinto[] {
+  const posiciones = encontrarPosiciones(mapa);
   const evaluados = poblacion.map((ind) => {
-    const sim = simularRecorrido(ind.cromosoma, mapa, config);
-    const fitness = calcularFitness(sim.distanciaFinal, sim.colisiones, sim.pasosDados, sim.alcanzoMeta, config);
+    const sim = simularRecorrido(ind.cromosoma, mapa, config, posiciones);
+    const costoDistancia = calcularCostoDistancia(sim.distanciaFinal, mapa);
+    const fitness = calcularFitness(costoDistancia, sim.colisiones, sim.pasosDados, sim.alcanzoMeta, config);
     return {
       ...ind,
       fitness,

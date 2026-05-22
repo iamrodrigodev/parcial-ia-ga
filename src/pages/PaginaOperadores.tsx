@@ -1,7 +1,7 @@
 import { Pestanas, ListaPestanas, DisparadorPestanas, ContenidoPestanas } from "@/components/ui/pestanas";
-import { VisualizadorSeleccion } from "@/components/geneticos/VisualizadorSeleccion";
-import { VisualizadorCruce } from "@/components/geneticos/VisualizadorCruce";
-import { VisualizadorMutacion } from "@/components/geneticos/VisualizadorMutacion";
+import { VisualizadorSeleccion } from "@/features/geneticos/components/VisualizadorSeleccion";
+import { VisualizadorCruce } from "@/features/geneticos/components/VisualizadorCruce";
+import { VisualizadorMutacion } from "@/features/geneticos/components/VisualizadorMutacion";
 
 export function PaginaOperadores() {
   return (

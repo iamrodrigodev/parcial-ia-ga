@@ -1,10 +1,10 @@
 import { useState } from "react";
 import { Boton } from "@/components/ui/boton";
-import { Ruleta } from "./seleccion/Ruleta";
-import { Ranking } from "./seleccion/Ranking";
-import { Torneo } from "./seleccion/Torneo";
-import { SteadyState } from "./seleccion/SteadyState";
-import { Elitismo } from "./seleccion/Elitismo";
+import { Ruleta } from "@/features/geneticos/components/seleccion/Ruleta";
+import { Ranking } from "@/features/geneticos/components/seleccion/Ranking";
+import { Torneo } from "@/features/geneticos/components/seleccion/Torneo";
+import { SteadyState } from "@/features/geneticos/components/seleccion/SteadyState";
+import { Elitismo } from "@/features/geneticos/components/seleccion/Elitismo";
 
 const tiposSeleccion = [
   { id: "ruleta", nombre: "Ruleta" },

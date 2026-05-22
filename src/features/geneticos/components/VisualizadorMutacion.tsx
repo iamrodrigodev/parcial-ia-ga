@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { Boton } from "@/components/ui/boton";
-import { MutacionBitFlip } from "./mutacion/MutacionBitFlip";
-import { MutacionIntercambio } from "./mutacion/MutacionIntercambio";
-import { MutacionInversion } from "./mutacion/MutacionInversion";
+import { MutacionBitFlip } from "@/features/geneticos/components/mutacion/MutacionBitFlip";
+import { MutacionIntercambio } from "@/features/geneticos/components/mutacion/MutacionIntercambio";
+import { MutacionInversion } from "@/features/geneticos/components/mutacion/MutacionInversion";
 
 const tiposMutacion = [
   { id: "bit-flip", nombre: "Bit Flip" },

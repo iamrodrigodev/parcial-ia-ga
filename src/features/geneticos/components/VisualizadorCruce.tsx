@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { Boton } from "@/components/ui/boton";
-import { CruceUnPunto } from "./cruce/CruceUnPunto";
-import { CruceDosPuntos } from "./cruce/CruceDosPuntos";
-import { CruceUniforme } from "./cruce/CruceUniforme";
+import { CruceUnPunto } from "@/features/geneticos/components/cruce/CruceUnPunto";
+import { CruceDosPuntos } from "@/features/geneticos/components/cruce/CruceDosPuntos";
+import { CruceUniforme } from "@/features/geneticos/components/cruce/CruceUniforme";
 
 const tiposCruce = [
   { id: "un-punto", nombre: "Cruce de Un Punto" },

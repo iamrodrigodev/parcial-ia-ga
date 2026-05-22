@@ -4,9 +4,10 @@ import { encontrarPosiciones } from "@/features/laberinto/lib/config";
 export function simularRecorrido(
   cromosoma: number[],
   mapa: MapaLaberinto,
-  _config: ConfigLaberinto
+  _config: ConfigLaberinto,
+  posiciones?: { inicio: Posicion; fin: Posicion }
 ): { trayectoria: Posicion[]; colisiones: number; pasosDados: number; pasosQuietos: number; alcanzoMeta: boolean; distanciaFinal: number } {
-  const { inicio, fin } = encontrarPosiciones(mapa);
+  const { inicio, fin } = posiciones ?? encontrarPosiciones(mapa);
   const alto = mapa.length;
   const ancho = mapa[0].length;
   const trayectoria: Posicion[] = [{ ...inicio, geneIndex: -1 }];

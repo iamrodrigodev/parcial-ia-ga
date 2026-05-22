@@ -5,9 +5,10 @@ import { IndividuoLaberinto } from "@/features/laberinto/lib/algoritmo";
 
 interface Props {
   mejorIndividuoHistorico: IndividuoLaberinto | null;
+  usaDistanciaEuclidiana: boolean;
 }
 
-function PanelMetricasLaberintoBase({ mejorIndividuoHistorico }: Props) {
+function PanelMetricasLaberintoBase({ mejorIndividuoHistorico, usaDistanciaEuclidiana }: Props) {
   if (!mejorIndividuoHistorico) return null;
 
   return (
@@ -27,7 +28,9 @@ function PanelMetricasLaberintoBase({ mejorIndividuoHistorico }: Props) {
           </span>
         </div>
         <div className="flex items-center justify-between border-t pt-2">
-          <span className="text-xs font-semibold text-muted-foreground">Distancia Euclidiana final</span>
+          <span className="text-xs font-semibold text-muted-foreground">
+            {usaDistanciaEuclidiana ? "Distancia Euclidiana final" : "Costo de distancia (normalizado)"}
+          </span>
           <span className="text-xs font-bold text-zinc-800">{mejorIndividuoHistorico.distanciaFinal.toFixed(2)} casillas</span>
         </div>
       </ContenidoTarjeta>

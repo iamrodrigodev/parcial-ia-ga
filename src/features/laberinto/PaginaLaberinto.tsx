@@ -32,6 +32,7 @@ export function PaginaLaberinto() {
 
   const filas = mapaActual.length;
   const columnas = mapaActual[0].length;
+  const usaDistanciaEuclidiana = Math.max(filas, columnas) <= 12;
   const fitnessVisible = mejorIndividuoGeneracion
     ? mejorIndividuoGeneracion.fitness * (maxPasosSimulacion > 0 ? pasoSimulacion / maxPasosSimulacion : 1)
     : null;
@@ -102,7 +103,10 @@ export function PaginaLaberinto() {
             cambiarConfiguracion={cambiarConfiguracion}
           />
 
-          <PanelMetricasLaberinto mejorIndividuoHistorico={mejorIndividuoHistorico} />
+          <PanelMetricasLaberinto
+            mejorIndividuoHistorico={mejorIndividuoHistorico}
+            usaDistanciaEuclidiana={usaDistanciaEuclidiana}
+          />
           <PanelNotasLaberinto />
         </div>
 

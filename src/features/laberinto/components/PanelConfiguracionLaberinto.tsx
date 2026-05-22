@@ -9,6 +9,7 @@ interface Props {
   mapaId: string;
   setMapaId: (id: string) => void;
   cambiarConfiguracion: (campo: keyof ConfigLaberinto, valor: number) => void;
+  cambiarAplicarOptimizacionPrefijo: (valor: boolean) => void;
 }
 
 type DraftInputs = {
@@ -19,13 +20,14 @@ type DraftInputs = {
   penalizacionPaso: string;
   penalizacionMuro: string;
   recompensaMeta: string;
+  recompensaCasilleroCorrecto: string;
 };
 
 function clamp(valor: number, min: number, max: number): number {
   return Math.max(min, Math.min(max, valor));
 }
 
-export function PanelConfiguracionLaberinto({ config, mapaId, setMapaId, cambiarConfiguracion }: Props) {
+export function PanelConfiguracionLaberinto({ config, mapaId, setMapaId, cambiarConfiguracion, cambiarAplicarOptimizacionPrefijo }: Props) {
   const [draft, setDraft] = useState<DraftInputs>({
     cantidadIndividuos: String(config.cantidadIndividuos),
     limitePasos: String(config.limitePasos),
@@ -34,6 +36,7 @@ export function PanelConfiguracionLaberinto({ config, mapaId, setMapaId, cambiar
     penalizacionPaso: String(config.penalizacionPaso),
     penalizacionMuro: String(config.penalizacionMuro),
     recompensaMeta: String(config.recompensaMeta),
+    recompensaCasilleroCorrecto: String(config.recompensaCasilleroCorrecto),
   });
 
   useEffect(() => {
@@ -45,6 +48,7 @@ export function PanelConfiguracionLaberinto({ config, mapaId, setMapaId, cambiar
       penalizacionPaso: String(config.penalizacionPaso),
       penalizacionMuro: String(config.penalizacionMuro),
       recompensaMeta: String(config.recompensaMeta),
+      recompensaCasilleroCorrecto: String(config.recompensaCasilleroCorrecto),
     });
   }, [config]);
 
@@ -179,6 +183,38 @@ export function PanelConfiguracionLaberinto({ config, mapaId, setMapaId, cambiar
               onChange={(e) => setDraft((d) => ({ ...d, recompensaMeta: e.target.value }))}
               onBlur={() => confirmarEntero("recompensaMeta", "recompensaMeta", 0, 100000, config.recompensaMeta)}
             />
+          </div>
+          <div className="flex flex-col gap-2 mt-3">
+            <label className="text-xs font-semibold text-zinc-700">Premio por Casillero Correcto</label>
+            <Entrada
+              type="number"
+              min={0}
+              max={1000}
+              value={draft.recompensaCasilleroCorrecto}
+              onChange={(e) => setDraft((d) => ({ ...d, recompensaCasilleroCorrecto: e.target.value }))}
+              onBlur={() =>
+                confirmarEntero(
+                  "recompensaCasilleroCorrecto",
+                  "recompensaCasilleroCorrecto",
+                  0,
+                  1000,
+                  config.recompensaCasilleroCorrecto
+                )
+              }
+            />
+            <span className="text-[11px] text-muted-foreground">Solo aplica en laberintos 16x16.</span>
+            <label className="flex items-center gap-2 rounded-md border border-dashed border-zinc-300 px-3 py-2 text-sm text-zinc-700">
+              <input
+                type="checkbox"
+                checked={config.aplicarOptimizacionPrefijo}
+                onChange={(e) => cambiarAplicarOptimizacionPrefijo(e.target.checked)}
+                className="h-4 w-4 rounded border-zinc-300 text-zinc-900 focus:ring-zinc-900"
+              />
+              <span className="font-medium">Aplicar optimización</span>
+            </label>
+            <span className="text-[11px] text-muted-foreground">
+              Si está activa, protege el prefijo correcto del cromosoma para evitar perder progreso por mutación.
+            </span>
           </div>
         </div>
       </ContenidoTarjeta>

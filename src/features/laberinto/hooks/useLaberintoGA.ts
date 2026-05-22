@@ -49,5 +49,6 @@ export function useLaberintoGA() {
     avanzarUnaGeneracion: evolutivo.avanzarUnaGeneracion,
     avanzar50Generaciones: evolutivo.avanzar50Generaciones,
     cambiarConfiguracion: evolutivo.cambiarConfiguracion,
+    cambiarAplicarOptimizacionPrefijo: evolutivo.cambiarAplicarOptimizacionPrefijo,
   };
 }

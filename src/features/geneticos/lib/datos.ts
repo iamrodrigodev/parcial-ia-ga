@@ -1,4 +1,4 @@
-import { Individuo } from "./tipos";
+import { Individuo } from "@/features/geneticos/lib/tipos";
 
 export const individuosDeEjemplo: Individuo[] = [
   { id: 1, nombre: "Ind 1", fitness: 15, color: "#64748b", pctInicio: 0, pctFin: 13.5 },
